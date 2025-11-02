@@ -7,33 +7,32 @@ Created on Sat Nov  1 14:33:05 2025
 
 import geomag
 import pandas as pd
-from typing import Dict, Optional, Union
 from utm import from_latlon
 
 
 class DataKey:
     def __init__(
         self,
-        ghi_columns: Optional[list] = None,
-        dhi_columns: Optional[list] = None,
-        dni_columns: Optional[list] = None,
-        poa_columns: Optional[list] = None,
-        rhi_columns: Optional[list] = None,
-        albedo_columns: Optional[list] = None,
-        soiling_columns: Optional[list] = None,
-        ambient_temperature_columns: Optional[list] = None,
-        wind_speed_columns: Optional[list] = None,
-        wind_direction_columns: Optional[list] = None,
-        relative_humidity_columns: Optional[list] = None,
-        pressure_columns: Optional[list] = None,
-        rain_columns: Optional[list] = None,
-        snow_columns: Optional[list] = None,
-        tracker_angle_columns: Optional[list] = None,
-        tracker_set_points_columns: Optional[list] = None,
-        inverter_generation_columns: Optional[list] = None,
-        power_factor_columns: Optional[list] = None,
-        setpoint_columns: Optional[list] = None,
-        meter_generation_columns: Optional[list] = None,
+        ghi_columns: list[str] | None = None,
+        dhi_columns: list[str] | None = None,
+        dni_columns: list[str] | None = None,
+        poa_columns: list[str] | None = None,
+        rhi_columns: list[str] | None = None,
+        albedo_columns: list[str] | None = None,
+        soiling_columns: list[str] | None = None,
+        ambient_temperature_columns: list[str] | None = None,
+        wind_speed_columns: list[str] | None = None,
+        wind_direction_columns: list[str] | None = None,
+        relative_humidity_columns: list[str] | None = None,
+        pressure_columns: list[str] | None = None,
+        rain_columns: list[str] | None = None,
+        snow_columns: list[str] | None = None,
+        tracker_angle_columns: list[str] | None = None,
+        tracker_set_points_columns: list[str] | None = None,
+        inverter_generation_columns: list[str] | None = None,
+        power_factor_columns: list[str] | None = None,
+        setpoint_columns: list[str] | None = None,
+        meter_generation_columns: list[str] | None = None,
     ):
 
         # set irradiance data
@@ -70,9 +69,9 @@ class Data:
             file_path: str,
             header_row: int, # indexed from 0
             data_start_row: int, # indexed from 0
-            nan_values: Union[float, int, str],
-            units_row: Optional[int] = None, # indexed from 0
-            delimiter: Optional[str] = ','
+            nan_values: float | int | str,
+            units_row: int | None = None, # indexed from 0
+            delimiter: str | None = ','
             ):
         # read in data as dataframe
         self.df = pd.read_csv(
@@ -102,7 +101,7 @@ class DataSet:
             data_id: str,
             lat: float,
             lon: float,
-            elevation: Optional[float],
+            elevation: float | None,
             ):
         self.id = data_id
         self.lat = lat
@@ -113,7 +112,7 @@ class DataSet:
         self.northing = northing
         self.utm_zone = zone
         self.magnetic_declination = geomag.declination(lat, lon)
-        self.Data: Optional[Data] = None
+        self.Data: Data | None = None
 
     def has_data(self) -> bool:
         return self.Data is not None

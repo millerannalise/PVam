@@ -1,0 +1,27 @@
+[project]
+name = "pvam"
+version = "0.1.0"
+description = "PVam is an open-source repository of PV solar tools"
+readme = "README.md"
+authors = [
+    { name = "Annalise Miller", email = "annalise.mckenzie.miller@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "geomag>=0.9.2015",
+    "pandas>=2.3.3",
+    "pvlib>=0.13.1",
+    "utm>=0.8.1",
+]
+
+[project.scripts]
+pvam = "pvam:main"
+
+[build-system]
+requires = ["uv_build>=0.9.7,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.3",
+]
